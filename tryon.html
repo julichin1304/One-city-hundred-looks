@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html lang="ru"><head><meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>MEDIA VOGUE · Примерь look</title>
+<style>
+:root{--bg:#fff;--card:#f4f4f4;--ink:#111;--mut:#666;--ch:#C8102E;--line:#d8d8d8;color-scheme:light;box-sizing:border-box;padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px)}
+@media (prefers-color-scheme:dark){:root:not([data-theme="light"]){--bg:#101010;--card:#1c1c1c;--ink:#f5f5f5;--mut:#aaa;--ch:#ff4d63;--line:#333;color-scheme:dark}}
+:root[data-theme="dark"]{--bg:#101010;--card:#1c1c1c;--ink:#f5f5f5;--mut:#aaa;--ch:#ff4d63;--line:#333;color-scheme:dark}
+html{scroll-padding-top:env(safe-area-inset-top,0px)}
+*{box-sizing:border-box}body{margin:0;background:var(--bg);color:var(--ink);font:15px/1.5 Inter,Arial,sans-serif}
+.w{max-width:760px;margin:0 auto;padding:22px 16px 40px}
+.k{letter-spacing:.18em;font-size:11px;color:var(--ch);font-weight:700}
+h1{font:italic 700 clamp(32px,9vw,50px)/1.02 "Times New Roman",Georgia,serif;margin:6px 0 6px}
+.sub{color:var(--mut);margin:0 0 16px}
+.stage{background:#f1efec;display:flex;justify-content:center;padding:8px;border:1px solid var(--line);margin-bottom:12px}
+#fig{width:230px;max-width:70%;height:auto}
+.cap{text-align:center;margin-bottom:14px}
+#nm{font:italic 700 24px "Times New Roman",Georgia,serif}
+.n{font-size:12px;letter-spacing:.14em;color:var(--ch);font-weight:700}
+.as{font-size:13px;color:var(--mut)}
+.grp{margin-bottom:12px}.grp h3{margin:0 0 6px;font-size:11px;letter-spacing:.16em;color:var(--mut);font-weight:700}
+.chips{display:flex;flex-wrap:wrap;gap:8px}
+.chip{background:transparent;color:var(--ink);border:1px solid var(--ink);border-radius:99px;padding:8px 14px;font:600 13px Inter,Arial,sans-serif;cursor:pointer}
+.chip.on{background:var(--ink);color:var(--bg)}
+.act{display:flex;gap:8px;flex-wrap:wrap;margin-top:16px}
+.btn{background:var(--ch);color:#fff;border:0;padding:12px 20px;font:700 12px Inter,Arial,sans-serif;letter-spacing:.1em;cursor:pointer}
+.btn.o{background:transparent;color:var(--ink);border:1px solid var(--ink)}
+.ft{font-size:12px;color:var(--mut);margin-top:14px}
+</style></head><body><div class="w">
+<div class="k">MEDIA VOGUE · LUNE FITTING ROOM</div>
+<h1>Примерь look</h1>
+<p class="sub">Собери образ из капсулы «City After Dark». Один город, сто твоих образов.</p>
+<div class="stage"><svg id="fig" viewBox="0 0 260 400" role="img" aria-label="Образ на манекене"></svg></div>
+<div class="cap"><div class="n" id="no"></div><div id="nm"></div><div class="as" id="ds"></div></div>
+<div id="ctl"></div>
+<div class="act"><button class="btn" id="rnd">СЛУЧАЙНЫЙ ОБРАЗ</button><button class="btn o" id="shr">ПОДЕЛИТЬСЯ ОБРАЗОМ</button></div>
+<p class="as" id="msg" aria-live="polite"></p>
+<p class="ft">LUNE — вымышленный бренд, учебный проект. Из 12 вещей и 3 палитр получается 243 образа: вот как из одной капсулы выходит «сто твоих образов».</p>
+</div>
+<script>
+const $=id=>document.getElementById(id);
+const TOP=["Жакет","Топ","Пальто"],BOT=["Брюки","Юбка миди","Юбка мини"],SHOE=["Ботинки","Лодочки","Кеды"],BAG=["Тоут","Клатч","Круглая сумка"];
+const PAL=[{n:"Ночь",a:"#111111",b:"#4a4a4a",c:"#C8102E",d:"Вечерний выход: чёрный и красный акцент."},{n:"Вишня",a:"#6B1E2E",b:"#1c1c1c",c:"#EADBC6",d:"Фирменный цвет LUNE: вишня и кремовые детали."},{n:"Крем",a:"#EADBC6",b:"#1c1c1c",c:"#6B1E2E",d:"Светлая база и вишнёвый акцент."}];
+const G=[["ВЕРХ",TOP],["НИЗ",BOT],["ОБУВЬ",SHOE],["СУМКА",BAG],["ПАЛИТРА",PAL.map(p=>p.n)]];
+let s=[0,0,0,0,0];
+const m=/^#l([0-2]{5})$/.exec(location.hash);if(m)s=m[1].split("").map(Number);
+function fig(){const p=PAL[s[4]],k="#cdbfb2",st=`stroke="#111" stroke-width="1.4"`;let o="";
+o+=`<circle cx="130" cy="38" r="19" fill="${k}"/><rect x="123" y="54" width="14" height="22" fill="${k}"/>`;
+if(s[1]==0)o+=`<path d="M96 188H164L160 350H134L130 228L126 350H100Z" fill="${p.b}" ${st}/>`;
+if(s[1]==1)o+=`<rect x="110" y="300" width="16" height="52" fill="${k}"/><rect x="134" y="300" width="16" height="52" fill="${k}"/><path d="M96 188H164L178 304H82Z" fill="${p.b}" ${st}/>`;
+if(s[1]==2)o+=`<rect x="110" y="244" width="16" height="108" fill="${k}"/><rect x="134" y="244" width="16" height="108" fill="${k}"/><path d="M96 188H164L170 246H90Z" fill="${p.b}" ${st}/>`;
+const sh=[`<rect x="-12" y="-10" width="24" height="30" rx="3"/><path d="M-12 12L-28 18V26H12V12Z"/>`,`<path d="M-12 0L12 0V8L9 24H6V12L-24 22L-26 18Z"/>`,`<path d="M-12 -2H12V16H-28Q-30 8 -12 6Z"/><rect x="-30" y="16" width="44" height="7" rx="3" fill="#fff"/>`][s[2]];
+o+=`<g transform="translate(113 352)" fill="${p.c}" ${st}>${sh}</g><g transform="translate(147 352) scale(-1 1)" fill="${p.c}" ${st}>${sh}</g>`;
+const dy=s[0]==2?30:0;
+if(s[0]==0)o+=`<path d="M84 76H176L184 214H76Z" fill="${p.a}" ${st}/><path d="M84 76L64 206L82 210L98 112Z" fill="${p.a}" ${st}/><path d="M176 76L196 206L178 210L162 112Z" fill="${p.a}" ${st}/><path d="M130 76L112 126L130 214L148 126Z" fill="#fff" opacity=".22"/><circle cx="130" cy="150" r="3" fill="${p.c}"/><circle cx="73" cy="216" r="8" fill="${k}"/><circle cx="187" cy="216" r="8" fill="${k}"/>`;
+if(s[0]==1)o+=`<path d="M96 88L74 190L88 194L106 112Z" fill="${k}"/><path d="M164 88L186 190L172 194L154 112Z" fill="${k}"/><path d="M102 80H158L154 192H106Z" fill="${p.a}" ${st}/>`;
+if(s[0]==2)o+=`<path d="M82 76H178L196 326H64Z" fill="${p.a}" ${st}/><path d="M82 76L58 232L80 238L98 112Z" fill="${p.a}" ${st}/><path d="M178 76L202 232L180 238L162 112Z" fill="${p.a}" ${st}/><line x1="130" y1="76" x2="130" y2="326" stroke="#fff" opacity=".3"/><rect x="66" y="170" width="128" height="9" fill="${p.c}"/><circle cx="69" cy="244" r="8" fill="${k}"/><circle cx="191" cy="244" r="8" fill="${k}"/>`;
+if(s[3]==0)o+=`<path d="M186 ${190+dy}Q200 ${160+dy} 214 ${190+dy}" fill="none" stroke="${p.c}" stroke-width="3"/><rect x="180" y="${190+dy}" width="40" height="38" rx="5" fill="${p.c}" ${st}/>`;
+if(s[3]==1)o+=`<rect x="178" y="${200+dy}" width="42" height="22" rx="4" fill="${p.c}" ${st}/>`;
+if(s[3]==2)o+=`<path d="M176 80Q214 120 204 ${196+dy}" fill="none" stroke="${p.c}" stroke-width="3"/><circle cx="204" cy="${214+dy}" r="18" fill="${p.c}" ${st}/>`;
+$("fig").innerHTML=o}
+function ui(){fig();const p=PAL[s[4]],n=s.reduce((a,v)=>a*3+v,0)+1;
+$("no").textContent="ОБРАЗ № "+n+" ИЗ 243";$("nm").textContent=TOP[s[0]]+" · "+BOT[s[1]].toLowerCase()+" · "+SHOE[s[2]].toLowerCase();$("ds").textContent="Палитра «"+p.n+"». "+p.d;
+document.querySelectorAll(".chip").forEach(c=>c.classList.toggle("on",s[+c.dataset.g]===+c.dataset.i));
+try{history.replaceState(null,"","#l"+s.join(""))}catch(e){}}
+G.forEach((g,gi)=>{$("ctl").insertAdjacentHTML("beforeend",`<div class="grp"><h3>${g[0]}</h3><div class="chips">${g[1].map((t,i)=>`<button class="chip" data-g="${gi}" data-i="${i}">${t}</button>`).join("")}</div></div>`)});
+document.querySelectorAll(".chip").forEach(c=>c.onclick=()=>{s[+c.dataset.g]=+c.dataset.i;ui()});
+$("rnd").onclick=()=>{s=s.map(()=>Math.floor(Math.random()*3));ui()};
+$("shr").onclick=async()=>{let ok=false;try{await navigator.clipboard.writeText(location.href);ok=true}catch(e){}$("msg").textContent=ok?"Ссылка на твой образ скопирована.":"Сделай скриншот образа и отправь подруге."};
+ui();
+</script></body></html>
